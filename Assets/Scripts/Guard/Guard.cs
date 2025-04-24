@@ -42,12 +42,10 @@ namespace NPC.Guard
         }
         private void OnEnable()
         {
-            Visioncon.PlayerDetected += OnPlyerDetect;
             StateManager.StateChanged += OnStateChanged;
         }
         private void OnDisable()
         {
-            Visioncon.PlayerDetected -= OnPlyerDetect;
             StateManager.StateChanged -= OnStateChanged;
         }
         private void Start()
@@ -59,10 +57,7 @@ namespace NPC.Guard
         {
             _currentState = state.ToString();
         }
-        private void OnPlyerDetect(Transform player)
-        {
-            float distance = Vector3.Distance(transform.position, player.position);
-        }
+
         public void PlayAnimation(string name)
         {
             _animator.Play(name);

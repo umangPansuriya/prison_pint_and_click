@@ -17,6 +17,15 @@ public class AIAgent : MonoBehaviour
         get { return _agent.speed; }
         set { _agent.speed = value; }
     }
+    public bool IsRechable(Vector3 target)
+    {
+        NavMeshPath path = new NavMeshPath();
+        if (_agent.CalculatePath(target, path))
+        {
+            return path.status == NavMeshPathStatus.PathComplete;
+        }
+        return false;
+    }
     public void SetDestination(Vector3 positon)
     {
         this.enabled = true;
@@ -43,5 +52,13 @@ public class AIAgent : MonoBehaviour
     private void OnValidate()
     {
         _agent.updateRotation = !_canCustomRotate;
+    }
+    public void AddLayer(int layer)
+    {
+        _agent.areaMask |= (1 << layer);
+    }
+    public void RemoveLayer(int layer)
+    {
+        _agent.areaMask &= ~(1 << layer);
     }
 }
