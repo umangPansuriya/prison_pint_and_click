@@ -1,19 +1,52 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Demo : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
+public class Demo : MonoBehaviour
 {
-    public void OnPointerEnter(PointerEventData eventData)
+    [SerializeField] List<Rigidbody> _bodies;
+    [SerializeField] Collider _collider;
+    [SerializeField] Animator _animator;
+    private void Start()
     {
-        GetComponent<MeshRenderer>().material.color = Color.white;
+        _collider.enabled = true;
+        _animator.enabled = true;
+        foreach (var b in _bodies)
+        {
+            b.isKinematic = true;
+        }
     }
-
-    public void OnPointerExit(PointerEventData eventData)
+    private void OnCollisionEnter(Collision collision)
     {
-        GetComponent<MeshRenderer>().material.color = Color.red;
+        if (collision.transform.tag == "Ammo")
+        {
+
+            _collider.enabled = false;
+            _animator.enabled = false;
+
+
+
+
+        }
     }
-
-
+    private void ActiveRagDoolApplyForce(Vector3 point)
+    {
+        float closestDist = float.MaxValue;
+        Rigidbody closest = null;
+        foreach (var rb in _bodies)
+        {
+            float dist = Vector3.Distance(rb.worldCenterOfMass, point);
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest = rb;
+            }
+            rb.isKinematic = false;
+            if (closest != null)
+            {
+                rb.AddForce((transform.forward - point) * 10, ForceMode.Impulse);
+            }
+        }
+    }
 }
 
 

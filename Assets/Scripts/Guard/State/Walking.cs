@@ -11,7 +11,7 @@ namespace NPC.Guard
         public override void Enter()
         {
             base.Enter();
-            _guard.Agent.RechedDestination += OnRechDestination;
+            _guard.Agent.RechedDestination_Action += OnRechDestination;
 
             _guard.GotoNextPoint();
             _guard.PlayAnimation("Walking");
@@ -19,7 +19,7 @@ namespace NPC.Guard
         public override void Exit()
         {
             base.Exit();
-            _guard.Agent.RechedDestination -= OnRechDestination;
+            _guard.Agent.RechedDestination_Action -= OnRechDestination;
         }
 
         protected override void OnPlyerDetect(Transform player)

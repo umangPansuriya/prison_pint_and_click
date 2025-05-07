@@ -1,9 +1,14 @@
+using Unity.AI.Navigation;
 using UnityEngine;
 
-public class DoorContorller : MonoBehaviour
+public class DoorContorller : Interactale
 {
     [SerializeField] private Door _door1;
     [SerializeField] private Door _door2;
+
+    [Space]
+    [SerializeField] private Transform _startTransform;
+    [SerializeField] private Transform _endTransform;
 
     [Space]
     [SerializeField] private PuzzlePanel _panel;
@@ -39,6 +44,11 @@ public class DoorContorller : MonoBehaviour
         _door1.Close();
         _door2.Close();
     }
+    public override void Deselect()
+    {
+        base.Deselect();
+        _player.ReachDestination_Action -= OnRechDestination;
+    }
     private void OpenDoor(Transform other)
     {
         Vector3 toPlayer = transform.position - other.position;
@@ -58,9 +68,39 @@ public class DoorContorller : MonoBehaviour
         _door1.Open(-1);
         _door2.Open(-1);
         _isSolved = true;
+        GetComponent<NavMeshLink>().enabled = true;
     }
     public void OpenPanel()
     {
         _panel.Open();
+    }
+    public override void OnInteract(PlayerController player)
+    {
+        _player = player;
+        if (player.Move(_startTransform.position) || player.Move(_endTransform.position))
+        {
+            player.ReachDestination_Action += OnRechDestination;
+        }
+        else
+        {
+            Deselect();
+        }
+
+    }
+    private void OnRechDestination()
+    {
+        if (IsAccessible(_player.transform))
+        {
+            float a = Vector3.Distance(_player.transform.position, _startTransform.position);
+            float b = Vector3.Distance(_player.transform.position, _endTransform.position);
+            if (a < b)
+            {
+                _player.PassOnDoor(_startTransform.position, _endTransform.position);
+            }
+            else
+            {
+                _player.PassOnDoor(_endTransform.position, _startTransform.position);
+            }
+        }
     }
 }

@@ -7,79 +7,98 @@ public class VisionCone : MonoBehaviour
     [SerializeField] private float _viewAngle = 90f;
     [SerializeField] private float _viewDistance = 5f;
     [SerializeField] private int _rayCount = 50;
+
+    [Space]
+    [SerializeField] private float _detectionFrequency;
+
+    [Space]
     [SerializeField] private LayerMask _obstacleMask;
     [SerializeField] private LayerMask _playerLayer;
+
+    [SerializeField] private MeshRenderer _meshRenderer;
+
     private Mesh _mesh;
-    private MeshRenderer _meshRenderer;
+
     private bool _canSeePlayer;
     private bool _canFireOutOfRange;
+
     public event Action<Transform> PlayerDetected;
     public event Action PlayerOutOfRange;
+
+    private float _angle;
+    private float _angleIncrement;
+
+    private float _tick;
+
+    private int[] _triangles;
+    private Vector3[] _vertices;
+
+    private void OnValidate()
+    {
+        _meshRenderer = GetComponent<MeshRenderer>();
+    }
+
     void Start()
     {
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
-        _meshRenderer = GetComponent<MeshRenderer>();
         transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
     }
 
     void LateUpdate()
     {
         DrawVision();
-        CheckPlayerInView();
+        if (_tick > _detectionFrequency)
+        {
+            _tick = 0;
+            CheckPlayerInView();
+        }
+        else
+        {
+            _tick += Time.deltaTime;
+        }
     }
 
     void DrawVision()
     {
-        // Setup angles and array sizes
-        float angle = -_viewAngle / 2f;
-        float angleIncrement = _viewAngle / _rayCount;
-
-        Vector3[] vertices = new Vector3[_rayCount + 2];
-        int[] triangles = new int[_rayCount * 3];
-
-        vertices[0] = Vector3.zero; // Origin of the cone (local center)
+        _angle = -_viewAngle / 2f;
+        _angleIncrement = _viewAngle / _rayCount;
+        _vertices = new Vector3[_rayCount + 2];
+        _triangles = new int[_rayCount * 3];
+        _vertices[0] = Vector3.zero;
 
         for (int i = 0; i <= _rayCount; i++)
         {
-            // Convert angle into a world-space direction from the object's forward
-            Vector3 dir = DirFromAngle(angle, false); // Use 'false' to make angle relative to enemy's current rotation
-            Vector3 rayOrigin = transform.position + transform.forward * 0.1f; // Slightly offset to avoid self-hit
+            Vector3 dir = DirFromAngle(_angle, false);
+            Vector3 rayOrigin = transform.position + transform.forward * 0.1f;
 
             Vector3 vertex;
 
-            // Raycast to detect obstacles
-            //Debug.DrawRay(rayOrigin, dir * _viewDistance, Color.white);
             if (Physics.Raycast(rayOrigin, dir, out RaycastHit hit, _viewDistance, _obstacleMask))
             {
                 vertex = transform.InverseTransformPoint(hit.point);
-                //Debug.DrawRay(rayOrigin, dir * hit.distance, Color.red);
             }
             else
             {
                 Vector3 endPoint = rayOrigin + dir * _viewDistance;
                 vertex = transform.InverseTransformPoint(endPoint);
-                //Debug.DrawRay(rayOrigin, dir * _viewDistance, Color.green);
             }
 
-            vertices[i + 1] = vertex;
+            _vertices[i + 1] = vertex;
 
-            // Create triangle fan
             if (i < _rayCount)
             {
                 int start = i * 3;
-                triangles[start] = 0;
-                triangles[start + 1] = i + 1;
-                triangles[start + 2] = i + 2;
+                _triangles[start] = 0;
+                _triangles[start + 1] = i + 1;
+                _triangles[start + 2] = i + 2;
             }
 
-            angle += angleIncrement;
+            _angle += _angleIncrement;
         }
-
-        // Assign and update mesh
         _mesh.Clear();
-        _mesh.vertices = vertices;
-        _mesh.triangles = triangles;
+        _mesh.vertices = _vertices;
+        _mesh.triangles = _triangles;
         _mesh.RecalculateNormals();
         _mesh.RecalculateBounds();
     }
@@ -95,6 +114,7 @@ public class VisionCone : MonoBehaviour
 
     void CheckPlayerInView()
     {
+
         _canSeePlayer = false;
 
         Collider[] hits = Physics.OverlapSphere(transform.position, _viewDistance, _playerLayer);

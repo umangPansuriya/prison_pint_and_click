@@ -12,19 +12,19 @@ namespace NPC.BatonGuard
         public BatonSearching(BatonGuard guard, Transform player) : base(guard)
         {
             _player = player;
+            _guard.Agent.Speed = _guard.ChaseSpeed;
         }
         public override void Enter()
         {
             base.Enter();
-            _guard.Agent.RechedDestination += OnReachDestination;
-
+            _guard.Agent.RechedDestination_Action += OnReachDestination;
             _guard.PlayAnimation("Walking");
             _guard.Agent.SetDestination(_player.position);
         }
         public override void Exit()
         {
             base.Exit();
-            _guard.Agent.RechedDestination -= OnReachDestination;
+            _guard.Agent.RechedDestination_Action -= OnReachDestination;
 
             if (_rotateGuard != null)
             {

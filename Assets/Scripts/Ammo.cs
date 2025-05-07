@@ -15,4 +15,12 @@ public class Ammo : MonoBehaviour
         }
         Destroy(gameObject);
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 6)
+        {
+            collision.transform.GetComponent<PlayerHealth>().Dmage(0);
+        }
+        Destroy(gameObject);
+    }
 }

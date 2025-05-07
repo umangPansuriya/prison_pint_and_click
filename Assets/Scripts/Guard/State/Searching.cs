@@ -16,7 +16,7 @@ namespace NPC.Guard
         public override void Enter()
         {
             base.Enter();
-            _guard.Agent.RechedDestination += OnReachDestination;
+            _guard.Agent.RechedDestination_Action += OnReachDestination;
 
             _guard.PlayAnimation("Walking");
             _guard.Agent.SetDestination(_player.position);
@@ -24,7 +24,7 @@ namespace NPC.Guard
         public override void Exit()
         {
             base.Exit();
-            _guard.Agent.RechedDestination -= OnReachDestination;
+            _guard.Agent.RechedDestination_Action -= OnReachDestination;
 
             if (_rotateGuard != null)
             {
