@@ -4,16 +4,17 @@ namespace NPC.BatonGuard
 {
     public class BatonWalking : BatonGuardState
     {
-        public BatonWalking(BatonGuard guard) : base(guard)
+        private Vector3 _destination;
+        public BatonWalking(BatonGuard guard, Vector3 destination) : base(guard)
         {
             _guard.Agent.Speed = _guard.WalkSpeed;
+            _destination = destination;
         }
         public override void Enter()
         {
             base.Enter();
             _guard.Agent.RechedDestination_Action += OnRechDestination;
-
-            _guard.GotoNextPoint();
+            _guard.Agent.SetDestination(_destination);
             _guard.PlayAnimation("Walking");
         }
         public override void Exit()

@@ -13,9 +13,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _cursor;
     [SerializeField] private GameObject _maincharacter;
     [SerializeField] private Ragdool _ragDool;
+    public Inventory Inventory;
     public bool IsHidden;
     public float Speed { get { return _agent.Speed; } set { _agent.Speed = value; } }
-    public bool IsAgentActive { get { return _agent.isActiveAndEnabled; } }
+
+    private bool _isplayerMoving;
+    public bool IsPlayerMoving { get { return _isplayerMoving; } }
 
     public event Action ReachDestination_Action;
     public event Action StartMoveing_Action;
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine _doorTravelCoroutine;
     private void Awake()
     {
+        Inventory = new Inventory();
         _cursor = Instantiate(_cursor);
     }
     private void Start()
@@ -42,23 +46,6 @@ public class PlayerController : MonoBehaviour
         _agent.StartMoveing_Action -= OnStartMoveing;
         _agent.RechedDestination_Action -= OnRechDestination;
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out DoorContorller door))
-        {
-            if (door.IsAccessible(transform))
-            {
-                //_agent.AddLayer(3);
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out DoorContorller door))
-        {
-            //_agent.RemoveLayer(3);
-        }
-    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Ammo"))
@@ -72,10 +59,12 @@ public class PlayerController : MonoBehaviour
     private void OnRechDestination()
     {
         _cursor.gameObject.SetActive(false);
+        _isplayerMoving = false;
         ReachDestination_Action?.Invoke();
     }
     private void OnStartMoveing()
     {
+        _isplayerMoving = true;
         StartMoveing_Action?.Invoke();
     }
     public bool Move(Vector3 position, bool canCheck = true)
@@ -102,6 +91,8 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator DoorTravelCoroutine(Vector3 startPos, Vector3 endPos)
     {
+        endPos.y = 0;
+        startPos.y = 0;
         transform.forward = endPos - transform.position;
         PlayAnimation("Walking");
         float time = 1f;

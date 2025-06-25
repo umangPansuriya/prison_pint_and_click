@@ -55,7 +55,6 @@ public class Run : Ability, IPointerDownHandler, IPointerUpHandler
     }
     private void RunClick_Canceled(InputAction.CallbackContext obj)
     {
-        Debug.Log("cancle");
         _isPressed = false;
         StopUsingAbility();
     }
@@ -65,12 +64,15 @@ public class Run : Ability, IPointerDownHandler, IPointerUpHandler
     }
     private void DoubleClick_Canceled(InputAction.CallbackContext obj)
     {
-        StopUsingAbility();
+        if (!_isPressed)
+        {
+            StopUsingAbility();
+        }
     }
 
     private void TryToUseAbility()
     {
-        if (_currentTime > 0 && _player.IsAgentActive)
+        if (_currentTime > 0 && _player.IsPlayerMoving)
         {
             _player.Speed = _runSpeed;
             StopCoroutine();
@@ -98,7 +100,7 @@ public class Run : Ability, IPointerDownHandler, IPointerUpHandler
     protected override void OnStopUsing()
     {
         _player.Speed = _walkSpeed;
-        if (_player.IsAgentActive)
+        if (_player.IsPlayerMoving)
         {
             _player.PlayAnimation("Walking");
         }

@@ -33,7 +33,7 @@ namespace NPC.BatonGuard
                 _guard.PlayAnimation("idle");
             }
             yield return new WaitForSeconds(point.StayDuration);
-            _guard.StateManager.SwitchStateTo(new BatonWalking(_guard));
+            _guard.StateManager.SwitchStateTo(new BatonWalking(_guard, _guard.GetNextPointPosition()));
         }
         public override void Exit()
         {

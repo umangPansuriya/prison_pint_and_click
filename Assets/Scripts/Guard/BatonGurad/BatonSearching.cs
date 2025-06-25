@@ -46,7 +46,7 @@ namespace NPC.BatonGuard
             }
             else
             {
-                _guard.StateManager.SwitchStateTo(new BatonWalking(_guard));
+                _guard.StateManager.SwitchStateTo(new BatonWalking(_guard, _guard.GetNextPointPosition()));
                 return;
             }
         }

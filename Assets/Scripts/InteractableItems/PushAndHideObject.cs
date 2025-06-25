@@ -18,9 +18,9 @@ public class PushAndHideObject : Interactale, IHidable, IPushable
 
     private Coroutine _coroutine;
 
-    public override void OnInteract(PlayerController playerMovement)
+    public override void OnInteract(PlayerController player)
     {
-        _player = playerMovement;
+        _player = player;
         _player.Move(_playerPlace.position);
         _player.ReachDestination_Action += OnReachDestination;
     }

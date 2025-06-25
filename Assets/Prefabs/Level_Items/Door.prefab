@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4550251228253533407}
   - component: {fileID: 3047294018066522330}
   - component: {fileID: 7393033453422404475}
+  - component: {fileID: 4340055223529028922}
   m_Layer: 0
   m_Name: door
   m_TagString: Untagged
@@ -66,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 98e455e6b33e56b42a2a1e9fbca2cda9, type: 2}
+  - {fileID: 2100000, guid: 6fdceb179ec4e724ea9536a10f3c2634, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,6 +124,26 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &4340055223529028922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604559507023041802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &2784750962188682024
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +156,7 @@ GameObject:
   m_Layer: 8
   m_Name: End
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -164,9 +185,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5838012133582332138}
   - component: {fileID: 9086413969293223626}
-  - component: {fileID: 7741961898086592080}
   - component: {fileID: 4211681315722078123}
   - component: {fileID: 3021559414449857900}
+  - component: {fileID: 5379872144453428049}
   m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
@@ -214,24 +235,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 1.5}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7741961898086592080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3725738070713431481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b56f50af4c79843aa791e6deddcec0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _door1: {fileID: 3047294018066522330}
-  _door2: {fileID: 463893617572227928}
-  navMeshLink: {fileID: 0}
-  _panel: {fileID: 0}
-  _canShowAlways: 0
-  _isSolved: 1
 --- !u!114 &4211681315722078123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +270,24 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &5379872144453428049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725738070713431481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599f8dc8a755be64e8c1702741c0b91a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startTransform: {fileID: 4639635603495213704}
+  _endTransform: {fileID: 3155213823847747498}
+  _puzzlePanel: {fileID: 0}
+  _isSolved: 0
+  _door1: {fileID: 3047294018066522330}
+  _door2: {fileID: 463893617572227928}
 --- !u!1 &5981500322658289252
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +300,7 @@ GameObject:
   m_Layer: 8
   m_Name: Start
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -311,6 +332,7 @@ GameObject:
   - component: {fileID: 8753435319723905341}
   - component: {fileID: 463893617572227928}
   - component: {fileID: 1651829962540050444}
+  - component: {fileID: 8244718885599796947}
   m_Layer: 0
   m_Name: door (1)
   m_TagString: Untagged
@@ -364,7 +386,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 98e455e6b33e56b42a2a1e9fbca2cda9, type: 2}
+  - {fileID: 2100000, guid: 6fdceb179ec4e724ea9536a10f3c2634, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -421,3 +443,23 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &8244718885599796947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009724210608528943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff

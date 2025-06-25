@@ -1,4 +1,4 @@
 public interface IInteractble
 {
-    public void OnInteract(PlayerController playerMovement);
+    public void OnInteract(PlayerController player);
 }

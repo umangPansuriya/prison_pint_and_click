@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccf678c5f75db844a2f930a8b1c1e51, type: 3}
+  m_Name: WashingRoomDialogue
+  m_EditorClassIdentifier: 
+  Lines:
+  - SpeakerName: Walter Fenric
+    dialogueType: 1
+    Text: "You\u2019ve opened the cell... Good. That\u2019s more than I ever managed.\nThe
+      only way out is through the Guard Chamber.\nBut it\u2019s covered in cameras.
+      You\u2019ll have to shut them down first."
+    SpeakerSprite: {fileID: 21300000, guid: 1647885be446a51448241ecd6036b66d, type: 3}
+    IsLeftSide: 0
+  - SpeakerName: Walter Fenric
+    dialogueType: 0
+    Text: "To kill the cameras, find the Surveillance Room Card.\nIt\u2019s locked
+      in the Store Room. And the Store Room key is under a washing machine in the
+      Laundry.\nWatch for the patrol. If they see you \u2014 hide. Immediately."
+    SpeakerSprite: {fileID: 21300000, guid: 1647885be446a51448241ecd6036b66d, type: 3}
+    IsLeftSide: 0

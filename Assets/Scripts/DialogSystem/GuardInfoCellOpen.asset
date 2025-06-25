@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccf678c5f75db844a2f930a8b1c1e51, type: 3}
+  m_Name: GuardInfoCellOpen
+  m_EditorClassIdentifier: 
+  Lines:
+  - SpeakerName: Surveillance Officer
+    dialogueType: 2
+    Text: Command, this is Surveillance. Cell 17 just triggered an unlock. The door's
+      status changed.
+    SpeakerSprite: {fileID: 0}
+    IsLeftSide: 0
+  - SpeakerName: Surveillance Officer
+    dialogueType: 2
+    Text: Repeat, Cell 17 is open. Possible escape attempt in progress.
+    SpeakerSprite: {fileID: 0}
+    IsLeftSide: 0
+  - SpeakerName: Guard
+    dialogueType: 2
+    Text: Copy that. I'm on my way to Cell 17. Keep eyes on the corridor feed.
+    SpeakerSprite: {fileID: 0}
+    IsLeftSide: 0
+  - SpeakerName: Surveillance Officer
+    dialogueType: 2
+    Text: Roger. Switching cameras to Sector 3 now.
+    SpeakerSprite: {fileID: 0}
+    IsLeftSide: 0

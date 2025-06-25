@@ -712,10 +712,12 @@ GameObject:
   - component: {fileID: 1797850979280466658}
   - component: {fileID: 5950158405608502288}
   - component: {fileID: 7643956760379980590}
-  - component: {fileID: 6850181006969371986}
+  - component: {fileID: 2542584597533608062}
+  - component: {fileID: 1125967089486088811}
+  - component: {fileID: 2094756014263122978}
   m_Layer: 0
   m_Name: Guard
-  m_TagString: Untagged
+  m_TagString: Guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -772,7 +774,7 @@ Animator:
   m_GameObject: {fileID: 4263332172292899837}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 49c1c97d2287ad74a8b8c37091c03961, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -799,7 +801,57 @@ MonoBehaviour:
   _canCustomRotate: 1
   _rotationSpeed: 5
   _agent: {fileID: 1797850979280466658}
---- !u!114 &6850181006969371986
+--- !u!136 &2542584597533608062
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4263332172292899837}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &1125967089486088811
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4263332172292899837}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2094756014263122978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -808,18 +860,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 4263332172292899837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5163644667d33e541960a36fcacce729, type: 3}
+  m_Script: {fileID: 11500000, guid: be8aa1880119abd4280e5ac988138299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanShowGizom: 1
   _animator: {fileID: 5950158405608502288}
   _path: {fileID: 0}
+  Agent: {fileID: 7643956760379980590}
+  Visioncon: {fileID: 7456655055699495515}
+  _currentState: 
   ShootPostion: {fileID: 1240900223265107718}
-  Agent: {fileID: 0}
-  Visioncon: {fileID: 0}
   Ammo: {fileID: 3912941909389382926, guid: bb29ad5ebd9ed3140abd3aee0a205e2a, type: 3}
-  _catchRange: 0
-  _shootRange: 0
-  _chaseRange: 0
+  CatchRange: 2
+  ShootRange: 4
+  ChaseRange: 6
+  SearchRange: 8
+  WalkSpeed: 2
+  ChaseSpeed: 2.5
+  CatchSpeed: 3
+  FireCoolDown: 0.1
+  MinimumStayTime: 1
 --- !u!1 &4339184345067880295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2548,12 +2608,14 @@ MonoBehaviour:
   _viewAngle: 90
   _viewDistance: 5
   _rayCount: 50
+  _detectionFrequency: 0
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 59
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  _meshRenderer: {fileID: 6928468115550106202}
 --- !u!1 &8864224518359091659
 GameObject:
   m_ObjectHideFlags: 0

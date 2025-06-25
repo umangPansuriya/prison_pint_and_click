@@ -47,7 +47,6 @@ public class InteractionManager : MonoBehaviour
         Vector3 position = _clickPosition;
 
         if (IsHittingUI(position)) return;
-
         Ray ray = _camera.ScreenPointToRay(position);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, _layermask))
